@@ -44,7 +44,6 @@ classDiagram
         +Port string
         +MaxClients int
         +CacheSize int
-        +LogLevel string
     }
     
     class LRUCache {
