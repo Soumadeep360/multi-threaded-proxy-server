@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"os"
@@ -51,7 +52,7 @@ func (s *ProxyServer) Start() error {
 		conn, err := listener.Accept()
 		if err != nil {
 			// Check if error is due to listener being closed
-			if netErr, ok := err.(net.Error); ok && !netErr.Temporary() {
+			if errors.Is(err, net.ErrClosed) {
 				return nil
 			}
 			s.errorLogger.Printf("Failed to accept connection: %v", err)
